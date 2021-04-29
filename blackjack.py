@@ -73,7 +73,7 @@ def blackjack():
     print("?")
     print()
 
-    # User turn of the game. Will ask "hit or stand" until the user
+    # User turn of the game. Will ask "hit or stand" until the user stands or busts
 
     if user_total == 21:
         print_hands()
