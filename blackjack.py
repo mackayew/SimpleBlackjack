@@ -27,8 +27,13 @@ def blackjack():
     dealer_total = 0
     deck = []
 
+    # This particular version of the game uses three decks, which are added to the 'deck' list
+
     for n in range(3):
         deck += [Card(card, values[card], suit) for card in cards for suit in suits]
+
+    # Deals two cards to both the user and dealer with the dealer's second card remaining face down
+    # Also checks to make sure no one is dealt a 22 hand, in which case one of the Aces will automatically become = 1
 
     os.system('cls')
     print("User Hand:")
@@ -68,6 +73,8 @@ def blackjack():
     print("?")
     print()
 
+    # User turn of the game. Will ask "hit or stand" until the user
+
     if user_total == 21:
         print_hands()
         print("Blackjack!!")
@@ -85,13 +92,15 @@ def blackjack():
             else:
                 print("Please enter a valid option.")
 
-            if user_total > 21:                         # Changes ace to 1
+            # Changes an Ace to = 1 if necessary
+
+            if user_total > 21:
                 for card_value in user_hand:
                     if card_value.value == 11:
                         card_value.value = 1
                         user_total -= 10
                         break
-                if user_total > 21:                 # Keep an eye on this, looks more efficient but may not work
+                if user_total > 21:
                     print_hands()
                     print("You lose!")
                     return 0
@@ -114,6 +123,8 @@ def blackjack():
     print("Dealer total: ", dealer_total)
     print()
 
+    # Dealer stands on 17, will continue to draw cards until the total is less than that or dealer busts
+
     while dealer_total < 17:
         dealer_card = random.choice(deck)
         dealer_hand.append(dealer_card)
@@ -131,11 +142,6 @@ def blackjack():
             print("Dealer busts!")
             return 0
 
-        if dealer_total == 21:
-            print_hands()
-            print("Dealer wins!")
-            return 0
-
     os.system('cls')
     if user_total > dealer_total:
         print_hands()
@@ -147,6 +153,7 @@ def blackjack():
         print_hands()
         print("Push!")
 
+# Function to print the user and dealer's hands and their totals
 
 def print_hands():
     global user_hand, dealer_hand, user_total, dealer_total
